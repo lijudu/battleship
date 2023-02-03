@@ -1,4 +1,11 @@
-function shipTest(string) {
-    return string
+const ship = (length, hits, sunk) => {
+    const isHit = () => ('increase hit counter');
+    const isSunk = (length, hits) => console.log('calculate based on length and hit')
+
+    return { length, hits, sunk, isHit, isSunk}
 }
-module.exports = shipTest;
+
+const player1 = ship(2,0,false);
+
+
+module.exports = player1;
