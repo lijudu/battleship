@@ -3,5 +3,6 @@ const player1 = require('./ship');
 test('player1', () => {
     // expect(player1.length).toBe(2);
     // expect(player1.isHit()).toBe('increase hit counter');
-    expect(player1.isHit()).toEqual(6)
+    // expect(player1.isHit()).toEqual(6)
+    expect(player1.isSunk()).toBe(false)
 })
