@@ -1,5 +1,7 @@
 const ship = (length, hits, sunk) => {
-    const isHit = () => (hits + 1);
+    const isHit = () => {
+        return hits + 1
+    }
     const isSunk = () => {
         if(length === hits) {
             return sunk = true
@@ -7,11 +9,18 @@ const ship = (length, hits, sunk) => {
             return sunk = false
         }
     }
+    const coord = []
 
-    return { length, hits, isHit, isSunk }
+    return { length, isHit, isSunk, coord }
 }
 
-const player1 = ship(2,1);
+// allShips should be an array that contains up to 5 ships with different lengths
+const ship1 = ship(2, 0)
+const ship2 = ship(3, 0)
+// const ship3 = ship(3, 0)
+// const ship4 = ship(4, 0)
+// const ship5 = ship(5, 0)
 
+const allShips = [ship1, ship2]
 
-module.exports = player1;
+module.exports = allShips;
