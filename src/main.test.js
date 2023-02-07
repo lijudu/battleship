@@ -10,5 +10,6 @@ const gameBoard = require('./gameboard');
 
 test('newBoard', () => {
     // expect(gameBoard.shipPlaced(allShips[1])).toEqual([[1,2], [2,2], [3,2]])
-    expect(gameBoard.receiveAttack()).toEqual(1)
+    // expect(gameBoard.receiveAttack()).toEqual(1)
+    expect(gameBoard.allSunk()).toBe(true)
 })
