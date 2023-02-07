@@ -29,6 +29,7 @@ const gameBoard = () => {
         // given a pair of coordinates, does it exist within allShips[ships].coord?
         const testCoord = [1,1]
         const testShip = ship1
+        const missed = []
         // testShip should be allShips[0].coord
 
         const includesCoord = testShip.some(a => testCoord.every((v, i) => v === a[i]))
@@ -36,8 +37,9 @@ const gameBoard = () => {
         if (includesCoord === true) {
            return allShips[0].isHit()
         } else if (includesCoord === false){
-            // record missed shot somehow
-            console.log('record missed coordinate and later display')
+            // put missed coord in an array []
+            missed.push(testCoord) 
+            return missed
         }
     }
 
