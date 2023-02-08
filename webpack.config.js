@@ -11,12 +11,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(jpe?g|png|gif|svg)$/i, 
-                use: ['url-loader', 'file-loader'],
-            },
-            {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: ["style-loader", "css-loader", "postcss-loader"],
+              },
+            {
+
             },
         ]
     }
