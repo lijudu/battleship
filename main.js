@@ -11003,6 +11003,144 @@ return jQuery;
 } );
 
 
+/***/ }),
+
+/***/ "./src/gameboard.js":
+/*!**************************!*\
+  !*** ./src/gameboard.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "gameBoard": () => (/* binding */ gameBoard)
+/* harmony export */ });
+/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ "./src/ship.js");
+
+
+const gameBoard = () => {
+    // each player has 5 ships (placed in allShip array) 
+    let ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(2, 0)
+    let ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(3, 0)
+    // const ship3 = ship(3, 0)
+    // const ship4 = ship(4, 0)
+    // const ship5 = ship(5, 0)
+
+    let allShips = [ship1, ship2]
+
+    //given a ship in allShips, push coordinates to ship and return coordinate
+    const shipPlaced = () => {
+        const x = [1,2,3,4,5,6,7,8,9,10]
+        const y = [1,2,3,4,5,6,7,8,9,10]
+
+        // user input places ships and then gameboard pushes ship coord  = do later
+        allShips[0].coord.push([1,1], [2,1])
+        allShips[1].coord.push([1,2], [2,2], [3,2])
+
+        // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
+        return allShips[0].coord, allShips[1].coord
+
+    }
+
+    const receiveAttack = (n) => {
+        console.log('attack received')
+        return n
+        // // given a pair of coordinates, does it exist within allShips[ships].coord?
+        // const attackCoord = [1,1]
+        // const testShip = allShips[0]
+        // const missed = []
+        // // testShip should be allShips[0].coord
+
+        // const includesCoord = testShip.some(a => attackCoord.every((v, i) => v === a[i]))
+
+        // if (includesCoord === true) {
+        //    return allShips[0].isHit()
+        // } else if (includesCoord === false){
+        //     // put missed coord in an array []
+        //     missed.push(attackCoord) 
+        //     return missed
+        // }
+    }
+
+    const allSunk = () => {
+        if (allShips.every(ship => ship.isSunk()) === true) {
+            return true
+        } else if (allShips.every(ship => ship.isSunk()) !== true) {
+            return false
+        }
+    }
+
+    return { shipPlaced, receiveAttack, allSunk }
+}
+
+
+
+/***/ }),
+
+/***/ "./src/player.js":
+/*!***********************!*\
+  !*** ./src/player.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "player": () => (/* binding */ player)
+/* harmony export */ });
+/* harmony import */ var _gameboard_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameboard.js */ "./src/gameboard.js");
+
+
+// play against computer
+// receive attacking coordinate value, store this
+// alternate turns (async/wait??) receiving hits
+// player/compuer each have 5 ships
+// computer should not hit same coordinate twice (use an API?)
+
+const player = (name) => {
+  let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_0__.gameBoard)()
+  // receive attack
+  let attack = () => {
+    return board.receiveAttack(22)
+  }
+  
+
+  return {name, attack}
+}
+
+
+/***/ }),
+
+/***/ "./src/ship.js":
+/*!*********************!*\
+  !*** ./src/ship.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ship": () => (/* binding */ ship)
+/* harmony export */ });
+const ship = (length, hits, sunk) => {
+    const isHit = () => {
+        return hits + 1
+    }
+    const isSunk = () => {
+        if(length === hits) {
+            return sunk = true
+        } else if (length !== hits){
+            return sunk = false
+        }
+    }
+    const coord = []
+
+    return { length, isHit, isSunk, coord }
+}
+
+
+
 /***/ })
 
 /******/ 	});
@@ -11083,9 +11221,18 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _player_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./player.js */ "./src/player.js");
+
+
+
 
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()("#main").text('hello!')
+
+const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('mandu')
+const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('computer')
+
+console.log(player1.attack())
 
 })();
 
