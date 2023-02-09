@@ -7,13 +7,22 @@ import {gameBoard} from './gameboard.js'
 // computer should not hit same coordinate twice (use an API?)
 
 const player = (name) => {
+  // set up gameboard
   let board = gameBoard()
+  // set up ships
+  let place = () => {
+    return board.shipPlaced()
+  }
   // receive attack
   let attack = () => {
-    return board.receiveAttack(22)
+    return board.receiveAttack('1b')
+  }
+  // return sunk ship
+  let sunk = () => {
+    return board.allSunk()
   }
   
 
-  return {name, attack}
+  return {name, attack, place, sunk}
 }
 export { player }
