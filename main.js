@@ -11032,35 +11032,33 @@ const gameBoard = () => {
     //given a ship in allShips, push coordinates to ship and return coordinate
     const shipPlaced = () => {
         const x = [1,2,3,4,5,6,7,8,9,10]
-        const y = [1,2,3,4,5,6,7,8,9,10]
+        const y = ['a','b','c','d','e','f','g','h','i','j']
 
         // user input places ships and then gameboard pushes ship coord  = do later
-        allShips[0].coord.push([1,1], [2,1])
-        allShips[1].coord.push([1,2], [2,2], [3,2])
+        allShips[0].coord.push('1a')
+        allShips[1].coord.push('1b', '2b')
 
         // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
-        return allShips[0].coord, allShips[1].coord
+        return allShips
 
     }
 
-    const receiveAttack = (n) => {
-        console.log('attack received')
-        return n
-        // // given a pair of coordinates, does it exist within allShips[ships].coord?
-        // const attackCoord = [1,1]
-        // const testShip = allShips[0]
-        // const missed = []
-        // // testShip should be allShips[0].coord
+    const receiveAttack = (shotCoord) => {
+        let missedShots = []
 
-        // const includesCoord = testShip.some(a => attackCoord.every((v, i) => v === a[i]))
+        let attackCoord = shotCoord
+        // given coordinates, does it exist within allShips[ships].coord?
+        const shipIndex = allShips.findIndex(ship => ship.coord.includes(attackCoord))
 
-        // if (includesCoord === true) {
-        //    return allShips[0].isHit()
-        // } else if (includesCoord === false){
-        //     // put missed coord in an array []
-        //     missed.push(attackCoord) 
-        //     return missed
-        // }
+        // if attackCoord does not exist within ship.coord, push in to missedShots array
+        if (shipIndex === -1) {
+            missedShots.push(attackCoord)
+        // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
+        } else if (shipIndex !== -1){
+            return allShips[shipIndex].isHit()
+        }
+
+        return missedShots
     }
 
     const allSunk = () => {
@@ -11099,14 +11097,23 @@ __webpack_require__.r(__webpack_exports__);
 // computer should not hit same coordinate twice (use an API?)
 
 const player = (name) => {
+  // set up gameboard
   let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_0__.gameBoard)()
+  // set up ships
+  let place = () => {
+    return board.shipPlaced()
+  }
   // receive attack
   let attack = () => {
-    return board.receiveAttack(22)
+    return board.receiveAttack('1b')
+  }
+  // return sunk ship
+  let sunk = () => {
+    return board.allSunk()
   }
   
 
-  return {name, attack}
+  return {name, attack, place, sunk}
 }
 
 
@@ -11232,6 +11239,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()("#main").text('hello!')
 const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('mandu')
 const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('computer')
 
+console.log(player1.place())
 console.log(player1.attack())
 
 })();
