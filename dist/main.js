@@ -11005,6 +11005,30 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./src/DOM.js":
+/*!********************!*\
+  !*** ./src/DOM.js ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "main": () => (/* binding */ main)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function main() {
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#main").text('hello!')
+}
+
+
+
+/***/ }),
+
 /***/ "./src/gameboard.js":
 /*!**************************!*\
   !*** ./src/gameboard.js ***!
@@ -11021,22 +11045,24 @@ __webpack_require__.r(__webpack_exports__);
 
 const gameBoard = () => {
     // each player has 5 ships (placed in allShip array) 
-    let ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(2, 0)
-    let ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(3, 0)
-    // const ship3 = ship(3, 0)
-    // const ship4 = ship(4, 0)
-    // const ship5 = ship(5, 0)
+    const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(2)
+    const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(3)
+    // const ship3 = ship(3)
+    // const ship4 = ship(4)
+    // const ship5 = ship(5)
 
     let allShips = [ship1, ship2]
+    let missedShots = []
 
     //given a ship in allShips, push coordinates to ship and return coordinate
-    const shipPlaced = () => {
+    const shipPlaced = (shipNumb, shipLoc) => {
         const x = [1,2,3,4,5,6,7,8,9,10]
         const y = ['a','b','c','d','e','f','g','h','i','j']
 
-        // user input places ships and then gameboard pushes ship coord  = do later
-        allShips[0].coord.push('1a')
-        allShips[1].coord.push('1b', '2b')
+        // user input places ships and then gameboard pushes ship coord 
+        allShips[shipNumb].coord = shipLoc
+
+
 
         // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
         return allShips
@@ -11044,7 +11070,7 @@ const gameBoard = () => {
     }
 
     const receiveAttack = (shotCoord) => {
-        let missedShots = []
+        // let missedShots = []
 
         let attackCoord = shotCoord
         // given coordinates, does it exist within allShips[ships].coord?
@@ -11052,21 +11078,34 @@ const gameBoard = () => {
 
         // if attackCoord does not exist within ship.coord, push in to missedShots array
         if (shipIndex === -1) {
-            missedShots.push(attackCoord)
+            return missedShots
+          
         // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
         } else if (shipIndex !== -1){
-            return allShips[shipIndex].isHit()
+            
+            return allShips[shipIndex].isHit(attackCoord)
         }
-
-        return missedShots
+    
     }
 
     const allSunk = () => {
-        if (allShips.every(ship => ship.isSunk()) === true) {
+        let sunkShips = []
+
+        // iterate through allShips array and check if each ship has been sunk
+        // if ship has been sunk, then increase number of sunkShips 
+        for(let i=0; i<allShips.length; i++) {
+            if(allShips[i].isSunk() == true) {
+                sunkShips.push('x')
+                console.log(sunkShips)
+            }
+        }
+        // if length of sunkShips == total number of ships, then all ships have been sunk
+        if (sunkShips.length == 2) {
             return true
-        } else if (allShips.every(ship => ship.isSunk()) !== true) {
+        } else if (sunkShips.length < 2) {
             return false
         }
+
     }
 
     return { shipPlaced, receiveAttack, allSunk }
@@ -11090,31 +11129,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameboard_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameboard.js */ "./src/gameboard.js");
 
 
-// play against computer
-// receive attacking coordinate value, store this
-// alternate turns (async/wait??) receiving hits
-// player/compuer each have 5 ships
-// computer should not hit same coordinate twice (use an API?)
-
 const player = (name) => {
   // set up gameboard
   let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_0__.gameBoard)()
   // set up ships
-  let place = () => {
-    return board.shipPlaced()
+  const place = (shipNumb, shipLoc) => {
+    // takes in ship number (starting at 0), and coord array 
+    board.shipPlaced(shipNumb, shipLoc)
+    return ('ship placed  ')
+    // board.shipPlaced(1, ['2a', '2b'])
   }
-  // receive attack
-  let attack = () => {
-    return board.receiveAttack('1b')
+  // receive attack given some input coordinate 
+  const isAttacked = (inputCoord) => {
+    board.receiveAttack(inputCoord)
+    return ('attack received')
   }
-  // return sunk ship
-  let sunk = () => {
-    return board.allSunk()
-  }
-  
+  // determine if all of players ships have sunk (= gameover)
+  const sunk = () => {
+    
+    if(board.allSunk() == true) {
+      return ('restart game')
+    } else if (board.allSunk() == false) {
+      return ('continue game')
+    }
 
-  return {name, attack, place, sunk}
+  }
+
+  return {name, isAttacked, place, sunk}
 }
+
+
+
 
 
 /***/ }),
@@ -11130,20 +11175,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ship": () => (/* binding */ ship)
 /* harmony export */ });
-const ship = (length, hits, sunk) => {
-    const isHit = () => {
-        return hits + 1
+
+const ship = (_length) => {    
+    // each ship also records its coordinates and number of hits
+    let hits = []
+    let coord = []
+
+    // if ship coordinates = attack coord, then will place that attack coord into a hit array 
+    const isHit = (location) => {
+        hits.push(location)
     }
+    // if hits array length == ship length, then return true (ship has sunk)
     const isSunk = () => {
-        if(length === hits) {
-            return sunk = true
-        } else if (length !== hits){
-            return sunk = false
+        let hitNumb = hits.length
+        let shipLength = _length
+        if (hitNumb === shipLength) {
+            console.log('sunk')
+            return true 
         }
     }
-    const coord = []
 
-    return { length, isHit, isSunk, coord }
+    return { _length, isHit, isSunk, coord }
 }
 
 
@@ -11229,18 +11281,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _player_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./player.js */ "./src/player.js");
+/* harmony import */ var _DOM__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DOM */ "./src/DOM.js");
 
 
 
 
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()("#main").text('hello!')
+
+(0,_DOM__WEBPACK_IMPORTED_MODULE_2__.main)()
 
 const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('mandu')
-const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_1__.player)('computer')
+// const player2 = player('computer')
 
-console.log(player1.place())
-console.log(player1.attack())
+// place player1 ships
+console.log(player1.place(0, ['1a', '1b']))
+console.log(player1.place(1, ['2a', '2b', '2c']))
+
+// computer attacks player1 = return player1.attack
+console.log(player1.isAttacked('1a'))
+console.log(player1.isAttacked('1b'))
+console.log(player1.isAttacked('2a'))
+console.log(player1.isAttacked('2b'))
+console.log(player1.isAttacked('2c'))
+
+console.log(player1.sunk())
+
 
 })();
 

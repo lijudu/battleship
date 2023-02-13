@@ -1,17 +1,24 @@
-const ship = (length, hits, sunk) => {
-    const isHit = () => {
-        return hits + 1
+
+const ship = (_length) => {    
+    // each ship also records its coordinates and number of hits
+    let hits = []
+    let coord = []
+
+    // if ship coordinates = attack coord, then will place that attack coord into a hit array 
+    const isHit = (location) => {
+        hits.push(location)
     }
+    // if hits array length == ship length, then return true (ship has sunk)
     const isSunk = () => {
-        if(length === hits) {
-            return sunk = true
-        } else if (length !== hits){
-            return sunk = false
+        let hitNumb = hits.length
+        let shipLength = _length
+        if (hitNumb === shipLength) {
+            console.log('sunk')
+            return true 
         }
     }
-    const coord = []
 
-    return { length, isHit, isSunk, coord }
+    return { _length, isHit, isSunk, coord }
 }
 
 export { ship }

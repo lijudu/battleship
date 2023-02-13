@@ -1,28 +1,34 @@
 import {gameBoard} from './gameboard.js'
 
-// play against computer
-// receive attacking coordinate value, store this
-// alternate turns (async/wait??) receiving hits
-// player/compuer each have 5 ships
-// computer should not hit same coordinate twice (use an API?)
-
 const player = (name) => {
   // set up gameboard
   let board = gameBoard()
   // set up ships
-  let place = () => {
-    return board.shipPlaced()
+  const place = (shipNumb, shipLoc) => {
+    // takes in ship number (starting at 0), and coord array 
+    board.shipPlaced(shipNumb, shipLoc)
+    return ('ship placed  ')
+    // board.shipPlaced(1, ['2a', '2b'])
   }
-  // receive attack
-  let attack = () => {
-    return board.receiveAttack('1b')
+  // receive attack given some input coordinate 
+  const isAttacked = (inputCoord) => {
+    board.receiveAttack(inputCoord)
+    return ('attack received')
   }
-  // return sunk ship
-  let sunk = () => {
-    return board.allSunk()
-  }
-  
+  // determine if all of players ships have sunk (= gameover)
+  const sunk = () => {
+    
+    if(board.allSunk() == true) {
+      return ('restart game')
+    } else if (board.allSunk() == false) {
+      return ('continue game')
+    }
 
-  return {name, attack, place, sunk}
+  }
+
+  return {name, isAttacked, place, sunk}
 }
+
+
+
 export { player }
