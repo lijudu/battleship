@@ -13,8 +13,6 @@ const gameBoard = () => {
 
     //given a ship in allShips, push coordinates to ship and return coordinate
     const shipPlaced = (shipNumb, shipLoc) => {
-        const x = [1,2,3,4,5,6,7,8,9,10]
-        const y = ['a','b','c','d','e','f','g','h','i','j']
 
         // user input places ships and then gameboard pushes ship coord 
         allShips[shipNumb].coord = shipLoc

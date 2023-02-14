@@ -1,10 +1,11 @@
 import $ from 'jquery'
+import './styles.css'
 
 import { player } from './player.js'
-import { main } from './DOM'
+import { loadGrid } from './DOM'
 
 
-main()
+$(loadGrid())
 
 const player1 = player('mandu')
 // const player2 = player('computer')

@@ -1,0 +1,40 @@
+
+#header {
+    text-align: center;
+}
+
+#name {
+    text-align: center;
+}
+
+#square, #squarep {
+    border: 2px solid white;
+    width: 30px;
+    height: 30px;
+}
+
+#container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#player1, #computer {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+    gap: 1px;
+}
+
+#name {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 130px;
+}
+
+#squarep {
+    background-color: #ddf7b7;
+}
+
+#square {
+    background-color: #f5d0f2;
+}
