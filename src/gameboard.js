@@ -1,3 +1,4 @@
+import $ from 'jQuery'
 import { ship } from './ship'
 
 const gameBoard = () => {
@@ -17,8 +18,7 @@ const gameBoard = () => {
         // user input places ships and then gameboard pushes ship coord 
         allShips[shipNumb].coord = shipLoc
 
-
-
+        
         // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
         return allShips
 
@@ -28,6 +28,7 @@ const gameBoard = () => {
         // let missedShots = []
 
         let attackCoord = shotCoord
+
         // given coordinates, does it exist within allShips[ships].coord?
         const shipIndex = allShips.findIndex(ship => ship.coord.includes(attackCoord))
 
@@ -37,8 +38,9 @@ const gameBoard = () => {
           
         // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
         } else if (shipIndex !== -1){
-            
-            return allShips[shipIndex].isHit(attackCoord)
+            console.log('hit')
+            allShips[shipIndex].isHit(attackCoord)
+            return true
         }
     
     }
@@ -52,6 +54,7 @@ const gameBoard = () => {
             if(allShips[i].isSunk() == true) {
                 sunkShips.push('x')
                 console.log(sunkShips)
+
             }
         }
         // if length of sunkShips == total number of ships, then all ships have been sunk

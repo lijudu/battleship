@@ -15,6 +15,8 @@ const ship = (_length) => {
         if (hitNumb === shipLength) {
             console.log('sunk')
             return true 
+        } else if (hitNumb !== shipLength) {
+            return false
         }
     }
 

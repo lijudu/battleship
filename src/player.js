@@ -1,3 +1,4 @@
+import $ from 'jQuery'
 import {gameBoard} from './gameboard.js'
 
 const player = (name) => {
@@ -7,21 +8,34 @@ const player = (name) => {
   const place = (shipNumb, shipLoc) => {
     // takes in ship number (starting at 0), and coord array 
     board.shipPlaced(shipNumb, shipLoc)
-    return ('ship placed  ')
-    // board.shipPlaced(1, ['2a', '2b'])
+
+    // show ship on board css
+    if (name='player1') {
+      shipLoc.forEach((item) => {
+        $('#squarep.' + item).css('background-color', '#b9c2a9')
+      })
+    }
+
+    return ('ship placed')
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-    board.receiveAttack(inputCoord)
-    return ('attack received')
+    if(name='player2' && board.receiveAttack(inputCoord)== true) {
+      $('#square.' + inputCoord).css('background-color', '#b9c2a9')
+    }
+    else if (name='player1') {
+      board.receiveAttack(inputCoord) 
+    }
+    // board.receiveAttack(inputCoord) 
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {
     
     if(board.allSunk() == true) {
-      return ('restart game')
+      console.log('all ships sunk')
+      return true
     } else if (board.allSunk() == false) {
-      return ('continue game')
+      console.log('continue')
     }
 
   }
