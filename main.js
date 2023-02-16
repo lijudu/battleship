@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#header {\n    text-align: center;\n}\n\n#name {\n    text-align: center;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n#header {\n    text-align: center;\n    font-size: 3rem;\n}\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -138,9 +138,9 @@ module.exports = function (i) {
 
 /***/ }),
 
-/***/ "./node_modules/jquery/dist/jquery.js":
+/***/ "./node_modules/jQuery/dist/jquery.js":
 /*!********************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js ***!
+  !*** ./node_modules/jQuery/dist/jquery.js ***!
   \********************************************/
 /***/ (function(module, exports) {
 
@@ -11509,35 +11509,6 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
-/***/ "./src/DOM.js":
-/*!********************!*\
-  !*** ./src/DOM.js ***!
-  \********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "loadGrid": () => (/* binding */ loadGrid)
-/* harmony export */ });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-
-
-const x = [1,2,3,4,5,6,7,8,9,10]
-const y = ['a','b','c','d','e','f','g','h','i','j']
-
-function loadGrid() {
-    // for(let i=0; i<x.length; i++) {
-    //     for(let j=0; j<y.length; j++) {
-    //     $('#player1').append('<div class= "row">')}
-    // }
-};
-
-
-
-/***/ }),
-
 /***/ "./src/gameboard.js":
 /*!**************************!*\
   !*** ./src/gameboard.js ***!
@@ -11549,13 +11520,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "gameBoard": () => (/* binding */ gameBoard)
 /* harmony export */ });
-/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ "./src/ship.js");
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jQuery */ "./node_modules/jQuery/dist/jquery.js");
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jQuery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ship */ "./src/ship.js");
+
 
 
 const gameBoard = () => {
     // each player has 5 ships (placed in allShip array) 
-    const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(2)
-    const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_0__.ship)(3)
+    const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)(2)
+    const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)(3)
     // const ship3 = ship(3)
     // const ship4 = ship(4)
     // const ship5 = ship(5)
@@ -11569,8 +11543,7 @@ const gameBoard = () => {
         // user input places ships and then gameboard pushes ship coord 
         allShips[shipNumb].coord = shipLoc
 
-
-
+        
         // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
         return allShips
 
@@ -11580,6 +11553,7 @@ const gameBoard = () => {
         // let missedShots = []
 
         let attackCoord = shotCoord
+
         // given coordinates, does it exist within allShips[ships].coord?
         const shipIndex = allShips.findIndex(ship => ship.coord.includes(attackCoord))
 
@@ -11589,8 +11563,9 @@ const gameBoard = () => {
           
         // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
         } else if (shipIndex !== -1){
-            
-            return allShips[shipIndex].isHit(attackCoord)
+            console.log('hit')
+            allShips[shipIndex].isHit(attackCoord)
+            return true
         }
     
     }
@@ -11604,6 +11579,7 @@ const gameBoard = () => {
             if(allShips[i].isSunk() == true) {
                 sunkShips.push('x')
                 console.log(sunkShips)
+
             }
         }
         // if length of sunkShips == total number of ships, then all ships have been sunk
@@ -11633,31 +11609,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "player": () => (/* binding */ player)
 /* harmony export */ });
-/* harmony import */ var _gameboard_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameboard.js */ "./src/gameboard.js");
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jQuery */ "./node_modules/jQuery/dist/jquery.js");
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jQuery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _gameboard_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameboard.js */ "./src/gameboard.js");
+
 
 
 const player = (name) => {
   // set up gameboard
-  let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_0__.gameBoard)()
+  let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_1__.gameBoard)()
   // set up ships
   const place = (shipNumb, shipLoc) => {
     // takes in ship number (starting at 0), and coord array 
     board.shipPlaced(shipNumb, shipLoc)
-    return ('ship placed  ')
-    // board.shipPlaced(1, ['2a', '2b'])
+
+    // show ship on board css
+    if (name='player1') {
+      shipLoc.forEach((item) => {
+        jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + item).css('background-color', '#b9c2a9')
+      })
+    }
+
+    return ('ship placed')
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-    board.receiveAttack(inputCoord)
-    return ('attack received')
+    if(name= true && board.receiveAttack(inputCoord)== true) {
+      jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + inputCoord).css('background-color', '#b9c2a9')
+    }
+    else if (name='player1') {
+      board.receiveAttack(inputCoord) 
+    }
+    // board.receiveAttack(inputCoord) 
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {
     
     if(board.allSunk() == true) {
-      return ('restart game')
+      console.log('all ships sunk')
+      return true
     } else if (board.allSunk() == false) {
-      return ('continue game')
+      console.log('continue')
     }
 
   }
@@ -11699,6 +11691,8 @@ const ship = (_length) => {
         if (hitNumb === shipLength) {
             console.log('sunk')
             return true 
+        } else if (hitNumb !== shipLength) {
+            return false
         }
     }
 
@@ -11790,35 +11784,114 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jQuery */ "./node_modules/jQuery/dist/jquery.js");
+/* harmony import */ var jQuery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jQuery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
 /* harmony import */ var _player_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player.js */ "./src/player.js");
-/* harmony import */ var _DOM__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DOM */ "./src/DOM.js");
 
 
 
 
 
-
-
-jquery__WEBPACK_IMPORTED_MODULE_0___default()((0,_DOM__WEBPACK_IMPORTED_MODULE_3__.loadGrid)())
-
-const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('mandu')
-// const player2 = player('computer')
+const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('player1')
+const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('computer')
 
 // place player1 ships
-console.log(player1.place(0, ['1a', '1b']))
-console.log(player1.place(1, ['2a', '2b', '2c']))
+player1.place(0, ['a1', 'b1'])
+player1.place(1, ['a2', 'b2', 'c2'])
+// console.log(player1.place(0, ['a1', 'b1']))
+// console.log(player1.place(1, ['a2', 'b2', 'c2']))
 
-// computer attacks player1 = return player1.attack
-console.log(player1.isAttacked('1a'))
-console.log(player1.isAttacked('1b'))
-console.log(player1.isAttacked('2a'))
-console.log(player1.isAttacked('2b'))
-console.log(player1.isAttacked('2c'))
+// place computer ships 
+player2.place(0, ['a1', 'b1'])
+player2.place(1, ['a2', 'b2', 'c2'])
+// console.log(player2.place(0, ['a1', 'b1']))
+// console.log(player2.place(1, ['a2', 'b2', 'c2']))
 
-console.log(player1.sunk())
+// computer attacks player1 = return player1.attack, create loop 
+let playerTurn = false
+let compAttempted = []
+
+function computerAttack() {
+    if (playerTurn == false) {
+        // computer starts first, generate random attack coordinate
+        const letters = ['a','b','c','d','e','f','g','h','i','k']
+    
+        const randomXInt = letters[Math.floor((Math.random() * 9))]
+        const randomY = String(Math.floor((Math.random() * 10) + 1))
+    
+        const compCoord = randomXInt + randomY
+
+        if(compAttempted.find(item => item == compCoord)) {
+            console.log('duplicate')
+        } else {
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
+        }
+
+        compAttempted.push(compCoord)
+        console.log(compCoord)
+        console.log(compAttempted)
+        // see if player1 ship has been attacked
+        player1.isAttacked(compCoord)
+    
+        // has player1 ship all sunk?
+        if(player1.sunk() === true) {
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Computer Wins!</div>')
+            return
+        }
+    
+        // if not all sunk, continue with player1 turn 
+        playerTurn = true
+        return compAttempted
+        }
+}
+
+function playerAttack() {
+    if (playerTurn == true) {
+        let getAttack = ""
+    
+        jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').on('click', function(e){
+            getAttack = e.target.className
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
+            console.log(getAttack)
+    
+            // see if computer ship has been attacked
+            player2.isAttacked(getAttack)
+    
+            // see if computer ship has all been sunk 
+            if(player2.sunk() ===  true){
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Player1 Wins!</div>')
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+                return
+            }
+    
+            // if not all sunk, then continue with computer turn 
+            playerTurn = false
+
+            // computer Turn
+            computerAttack()
+        })
+    
+    }
+}
+
+
+(function gameLoop() {
+    computerAttack()
+    playerAttack()
+   
+})();
+
+
+// console.log(player1.isAttacked('a1'))
+// console.log(player1.isAttacked('b1'))
+// console.log(player1.isAttacked('a2'))
+// console.log(player1.isAttacked('b2'))
+// console.log(player1.isAttacked('c2'))
+
+// check if any ship has sunk or continue game
+// console.log(player1.sunk())
 
 
 })();
