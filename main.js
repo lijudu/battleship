@@ -11892,10 +11892,17 @@ function playerAttack() {
     }
 }
 
+function restart() {
+    jQuery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.replay', function() {
+        location.reload()
+    })
+}
+
 
 (function gameLoop() {
     computerAttack()
     playerAttack()
+    restart()
    
 })();
 
