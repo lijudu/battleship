@@ -21,6 +21,7 @@ player2.place(1, ['a2', 'b2', 'c2'])
 // computer attacks player1 = return player1.attack, create loop 
 let playerTurn = false
 let compAttempted = []
+let playerAttempted = []
 
 function computerAttack() {
     if (playerTurn == false) {
@@ -32,27 +33,28 @@ function computerAttack() {
     
         const compCoord = randomXInt + randomY
 
-        if(compAttempted.find(item => item == compCoord)) {
-            console.log('duplicate')
-        } else {
-            $('#squarep.' + compCoord).append('<div class="hit"></div>')
-        }
+        const findCompAttempt = compAttempted.find(item => item == compCoord)
 
-        compAttempted.push(compCoord)
-        console.log(compCoord)
-        console.log(compAttempted)
-        // see if player1 ship has been attacked
-        player1.isAttacked(compCoord)
-    
-        // has player1 ship all sunk?
-        if(player1.sunk() === true) {
+        if (findCompAttempt == undefined) {
+            compAttempted.push(compCoord)
+            $('#squarep.' + compCoord).append('<div class="hit"></div>')
+            console.log(compAttempted)
+            player1.isAttacked(compCoord)
+            
+            // has player1 ship all sunk?
+            if(player1.sunk() === true) {
             $('#main').append('<div class="declare">Computer Wins!</div>')
             return
+            }
+            
+            // if not all sunk, continue with player1 turn 
+            playerTurn = true
+            return compAttempted
+        } else if (findCompAttempt != undefined) {
+            console.log('duplicate')
+            // find new attack coord
+            computerAttack()
         }
-    
-        // if not all sunk, continue with player1 turn 
-        playerTurn = true
-        return compAttempted
         }
 }
 
@@ -61,26 +63,35 @@ function playerAttack() {
         let getAttack = ""
     
         $('#computer').on('click', function(e){
-            getAttack = e.target.className
-            $('#square.' + getAttack).append('<div class="hit"></div>')
-            console.log(getAttack)
-    
-            // see if computer ship has been attacked
-            player2.isAttacked(getAttack)
-    
-            // see if computer ship has all been sunk 
-            if(player2.sunk() ===  true){
-                $('#computer').off('click')
-                $('#main').append('<div class="declare">Player1 Wins!</div>')
-                $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
-                return
-            }
-    
-            // if not all sunk, then continue with computer turn 
-            playerTurn = false
+            // player unable to hit same target twice
 
-            // computer Turn
-            computerAttack()
+            getAttack = e.target.className
+            // see if player has already clicked before
+            const findAttempt = playerAttempted.find(item => item == getAttack)
+
+            if (getAttack == 'hit') {
+                // do nothing
+            } else if (findAttempt == undefined) {
+                // record coordinate as an attempt
+                playerAttempted.push(getAttack)
+                // create hit mark on board
+                $('#square.' + getAttack).append('<div class="hit"></div>')
+                console.log(playerAttempted)
+                // see if computer board ship hit 
+                player2.isAttacked(getAttack)
+                // determine if computer board all ships have sunk
+                if(player2.sunk() ===  true){
+                    $('#computer').off('click')
+                    $('#main').append('<div class="declare">Player1 Wins!</div>')
+                    $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+                    return
+                }
+                // return playerTurn back to computer
+                playerTurn = false
+                // wait for computer attack
+                computerAttack()
+            }
+
         })
     
     }
@@ -93,13 +104,4 @@ function playerAttack() {
    
 })();
 
-
-// console.log(player1.isAttacked('a1'))
-// console.log(player1.isAttacked('b1'))
-// console.log(player1.isAttacked('a2'))
-// console.log(player1.isAttacked('b2'))
-// console.log(player1.isAttacked('c2'))
-
-// check if any ship has sunk or continue game
-// console.log(player1.sunk())
 
