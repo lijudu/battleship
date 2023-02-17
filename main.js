@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n#header {\n    text-align: center;\n    font-size: 3rem;\n}\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n#header {\n    text-align: center;\n    font-size: 3rem;\n}\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n    /* z-index: 1;\n    position: absolute; */\n    \n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11634,13 +11634,18 @@ const player = (name) => {
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-    if(name= true && board.receiveAttack(inputCoord)== true) {
-      jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + inputCoord).css('background-color', '#b9c2a9')
-    }
-    else if (name='player1') {
-      board.receiveAttack(inputCoord) 
-    }
-    // board.receiveAttack(inputCoord) 
+    // if(name=='computer' && board.receiveAttack(inputCoord)== true) {
+    //   $('#square.' + inputCoord).css('background-color', '#b9c2a9')
+    // }
+    // else if (name='player1') {
+    //   board.receiveAttack(inputCoord) 
+    // }
+    board.receiveAttack(inputCoord) 
+      // if (board.receiveAttack(inputCoord) == true) {
+      //   // change hit color
+        
+      // 
+
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {
@@ -11650,6 +11655,7 @@ const player = (name) => {
       return true
     } else if (board.allSunk() == false) {
       console.log('continue')
+      return false
     }
 
   }
@@ -11811,6 +11817,7 @@ player2.place(1, ['a2', 'b2', 'c2'])
 // computer attacks player1 = return player1.attack, create loop 
 let playerTurn = false
 let compAttempted = []
+let playerAttempted = []
 
 function computerAttack() {
     if (playerTurn == false) {
@@ -11822,27 +11829,28 @@ function computerAttack() {
     
         const compCoord = randomXInt + randomY
 
-        if(compAttempted.find(item => item == compCoord)) {
-            console.log('duplicate')
-        } else {
-            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
-        }
+        const findCompAttempt = compAttempted.find(item => item == compCoord)
 
-        compAttempted.push(compCoord)
-        console.log(compCoord)
-        console.log(compAttempted)
-        // see if player1 ship has been attacked
-        player1.isAttacked(compCoord)
-    
-        // has player1 ship all sunk?
-        if(player1.sunk() === true) {
+        if (findCompAttempt == undefined) {
+            compAttempted.push(compCoord)
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
+            console.log(compAttempted)
+            player1.isAttacked(compCoord)
+            
+            // has player1 ship all sunk?
+            if(player1.sunk() === true) {
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Computer Wins!</div>')
             return
+            }
+            
+            // if not all sunk, continue with player1 turn 
+            playerTurn = true
+            return compAttempted
+        } else if (findCompAttempt != undefined) {
+            console.log('duplicate')
+            // find new attack coord
+            computerAttack()
         }
-    
-        // if not all sunk, continue with player1 turn 
-        playerTurn = true
-        return compAttempted
         }
 }
 
@@ -11851,26 +11859,35 @@ function playerAttack() {
         let getAttack = ""
     
         jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').on('click', function(e){
-            getAttack = e.target.className
-            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
-            console.log(getAttack)
-    
-            // see if computer ship has been attacked
-            player2.isAttacked(getAttack)
-    
-            // see if computer ship has all been sunk 
-            if(player2.sunk() ===  true){
-                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
-                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Player1 Wins!</div>')
-                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
-                return
-            }
-    
-            // if not all sunk, then continue with computer turn 
-            playerTurn = false
+            // player unable to hit same target twice
 
-            // computer Turn
-            computerAttack()
+            getAttack = e.target.className
+            // see if player has already clicked before
+            const findAttempt = playerAttempted.find(item => item == getAttack)
+
+            if (getAttack == 'hit') {
+                // do nothing
+            } else if (findAttempt == undefined) {
+                // record coordinate as an attempt
+                playerAttempted.push(getAttack)
+                // create hit mark on board
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
+                console.log(playerAttempted)
+                // see if computer board ship hit 
+                player2.isAttacked(getAttack)
+                // determine if computer board all ships have sunk
+                if(player2.sunk() ===  true){
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Player1 Wins!</div>')
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+                    return
+                }
+                // return playerTurn back to computer
+                playerTurn = false
+                // wait for computer attack
+                computerAttack()
+            }
+
         })
     
     }
@@ -11883,15 +11900,6 @@ function playerAttack() {
    
 })();
 
-
-// console.log(player1.isAttacked('a1'))
-// console.log(player1.isAttacked('b1'))
-// console.log(player1.isAttacked('a2'))
-// console.log(player1.isAttacked('b2'))
-// console.log(player1.isAttacked('c2'))
-
-// check if any ship has sunk or continue game
-// console.log(player1.sunk())
 
 
 })();
