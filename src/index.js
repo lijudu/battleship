@@ -102,10 +102,17 @@ function playerAttack() {
     }
 }
 
+function restart() {
+    $(document).on('click', '.replay', function() {
+        location.reload()
+    })
+}
+
 
 (function gameLoop() {
     computerAttack()
     playerAttack()
+    restart()
    
 })();
 
