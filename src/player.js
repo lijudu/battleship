@@ -20,18 +20,12 @@ const player = (name) => {
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-    // if(name=='computer' && board.receiveAttack(inputCoord)== true) {
-    //   $('#square.' + inputCoord).css('background-color', '#b9c2a9')
-    // }
-    // else if (name='player1') {
-    //   board.receiveAttack(inputCoord) 
-    // }
-    board.receiveAttack(inputCoord) 
-      // if (board.receiveAttack(inputCoord) == true) {
-      //   // change hit color
-        
-      // 
 
+    // board.receiveAttack(inputCoord) 
+
+    if (board.receiveAttack(inputCoord)== true) {
+      return true
+    }
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {

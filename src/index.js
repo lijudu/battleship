@@ -78,7 +78,12 @@ function playerAttack() {
                 $('#square.' + getAttack).append('<div class="hit"></div>')
                 console.log(playerAttempted)
                 // see if computer board ship hit 
-                player2.isAttacked(getAttack)
+                // player2.isAttacked(getAttack)
+
+                if(player2.isAttacked(getAttack)== true) {
+                    $('#square.' + getAttack).css('background-color', '#78323e')
+                }
+
                 // determine if computer board all ships have sunk
                 if(player2.sunk() ===  true){
                     $('#computer').off('click')

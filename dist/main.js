@@ -11634,18 +11634,12 @@ const player = (name) => {
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-    // if(name=='computer' && board.receiveAttack(inputCoord)== true) {
-    //   $('#square.' + inputCoord).css('background-color', '#b9c2a9')
-    // }
-    // else if (name='player1') {
-    //   board.receiveAttack(inputCoord) 
-    // }
-    board.receiveAttack(inputCoord) 
-      // if (board.receiveAttack(inputCoord) == true) {
-      //   // change hit color
-        
-      // 
 
+    // board.receiveAttack(inputCoord) 
+
+    if (board.receiveAttack(inputCoord)== true) {
+      return true
+    }
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {
@@ -11874,7 +11868,12 @@ function playerAttack() {
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
                 console.log(playerAttempted)
                 // see if computer board ship hit 
-                player2.isAttacked(getAttack)
+                // player2.isAttacked(getAttack)
+
+                if(player2.isAttacked(getAttack)== true) {
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).css('background-color', '#78323e')
+                }
+
                 // determine if computer board all ships have sunk
                 if(player2.sunk() ===  true){
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
