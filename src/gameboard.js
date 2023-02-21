@@ -47,7 +47,7 @@ const gameBoard = (name) => {
                 break;
                 }
                 coords.push(xCoords[xx] + yCoords[yy]);
-                console.log(xCoords[xx] + yCoords[yy])
+                // console.log(xCoords[xx] + yCoords[yy])
             }
             
             // If the ship fits, place it and mark the grid with 'X'
@@ -62,7 +62,7 @@ const gameBoard = (name) => {
                 }
                 }
                 allCoords.push(coords)
-                console.log(allCoords)
+                // console.log(allCoords)
                 placed = true;
             }
             }
@@ -77,16 +77,6 @@ const gameBoard = (name) => {
 
     shipPlaced()
 
-    // //given a ship in allShips, push coordinates to ship and return coordinate
-    // const shipPlaced = (shipNumb, shipLoc) => {
-
-    //     // user input places ships and then gameboard pushes ship coord 
-    //     allShips[shipNumb].coord = shipLoc
-
-    //     // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
-    //     return allShips
-
-    // }
 
     const receiveAttack = (shotCoord) => {
         // let missedShots = []
