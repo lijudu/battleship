@@ -3,30 +3,22 @@ import './styles.css'
 
 import { player } from './player.js'
 
+// create player1 and computer 
 const player1 = player('player1')
 const player2 = player('computer')
 
-// place player1 ships
-player1.place(0, ['a1', 'b1'])
-player1.place(1, ['a2', 'b2', 'c2'])
-// console.log(player1.place(0, ['a1', 'b1']))
-// console.log(player1.place(1, ['a2', 'b2', 'c2']))
-
-// place computer ships 
-player2.place(0, ['a1', 'b1'])
-player2.place(1, ['a2', 'b2', 'c2'])
-// console.log(player2.place(0, ['a1', 'b1']))
-// console.log(player2.place(1, ['a2', 'b2', 'c2']))
+// place computer ships randomly
 
 // computer attacks player1 = return player1.attack, create loop 
 let playerTurn = false
-let compAttempted = []
-let playerAttempted = []
+
 
 function computerAttack() {
+    let compAttempted = []
+
     if (playerTurn == false) {
         // computer starts first, generate random attack coordinate
-        const letters = ['a','b','c','d','e','f','g','h','i','k']
+        const letters = ['a','b','c','d','e','f','g','h','i','j']
     
         const randomXInt = letters[Math.floor((Math.random() * 9))]
         const randomY = String(Math.floor((Math.random() * 10) + 1))
@@ -38,7 +30,7 @@ function computerAttack() {
         if (findCompAttempt == undefined) {
             compAttempted.push(compCoord)
             $('#squarep.' + compCoord).append('<div class="hit"></div>')
-            console.log(compAttempted)
+            // if havent attacked coord before, attack player1 board
             player1.isAttacked(compCoord)
             
             // has player1 ship all sunk?
@@ -51,7 +43,6 @@ function computerAttack() {
             playerTurn = true
             return compAttempted
         } else if (findCompAttempt != undefined) {
-            console.log('duplicate')
             // find new attack coord
             computerAttack()
         }
@@ -59,6 +50,8 @@ function computerAttack() {
 }
 
 function playerAttack() {
+    let playerAttempted = []
+
     if (playerTurn == true) {
         let getAttack = ""
     
@@ -76,12 +69,11 @@ function playerAttack() {
                 playerAttempted.push(getAttack)
                 // create hit mark on board
                 $('#square.' + getAttack).append('<div class="hit"></div>')
-                console.log(playerAttempted)
                 // see if computer board ship hit 
                 // player2.isAttacked(getAttack)
 
                 if(player2.isAttacked(getAttack)== true) {
-                    $('#square.' + getAttack).css('background-color', '#78323e')
+                    $('#square.' + getAttack).css('background-color', '#9e6b60')
                 }
 
                 // determine if computer board all ships have sunk

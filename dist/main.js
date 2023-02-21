@@ -11526,28 +11526,92 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const gameBoard = () => {
-    // each player has 5 ships (placed in allShip array) 
-    const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)(2)
-    const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)(3)
-    // const ship3 = ship(3)
-    // const ship4 = ship(4)
-    // const ship5 = ship(5)
+const gameBoard = (name) => {
+    // Define the x and y coordinates
+    const xCoords = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+    const yCoords = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
-    let allShips = [ship1, ship2]
-    let missedShots = []
-
-    //given a ship in allShips, push coordinates to ship and return coordinate
-    const shipPlaced = (shipNumb, shipLoc) => {
-
-        // user input places ships and then gameboard pushes ship coord 
-        allShips[shipNumb].coord = shipLoc
-
-        
-        // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
-        return allShips
-
+    // Initialize the grid as a 2D array
+    const grid = [];
+    for (let i = 0; i < yCoords.length; i++) {
+        grid[i] = [];
+        for (let j = 0; j < xCoords.length; j++) {
+        grid[i][j] = '-';
     }
+    }
+
+    // each player has 5 ships (placed in allShip array) 
+    const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship1', 2)
+    const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship2', 3)
+    const ship3 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship3', 3)
+    const ship4 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship4', 4)
+    const ship5 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship5', 5)
+
+    let allShips = [ship1, ship2, ship3, ship4, ship5]
+    let missedShots = []
+    let allCoords = []
+
+    // Place the ships
+    const shipPlaced = () => {
+        for (let ship of allShips) {
+            let placed = false;
+            while (!placed) {
+            // Choose a random starting position and direction for the ship
+            const x = Math.floor(Math.random() * xCoords.length);
+            const y = Math.floor(Math.random() * yCoords.length);
+            const horizontal = Math.random() < 0.5;
+            
+            // Check if the ship fits in the chosen position and direction
+            let fits = true;
+            let coords = [];
+            for (let i = 0; i < ship.length; i++) {
+                const xx = horizontal ? x + i : x;
+                const yy = horizontal ? y : y + i;
+                if (xx >= xCoords.length || yy >= yCoords.length || grid[yy][xx] !== '-') {
+                fits = false;
+                break;
+                }
+                coords.push(xCoords[xx] + yCoords[yy]);
+                console.log(xCoords[xx] + yCoords[yy])
+            }
+            
+            // If the ship fits, place it and mark the grid with 'X'
+            if (fits) {
+                for (let coord of coords) {
+                grid[yCoords.indexOf(coord.slice(1))][xCoords.indexOf(coord.slice(0, 1))] = 'X';
+                if (name == 'player1') {
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + coord).css('background-color', '#b9c2a9')
+                } else if (name == 'computer') {
+                    // remove computer ship placed later...
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + coord).css('background-color', '#b9c2a9')
+                }
+                }
+                allCoords.push(coords)
+                console.log(allCoords)
+                placed = true;
+            }
+            }
+        }
+
+        ship1.coord = allCoords[0]
+        ship2.coord = allCoords[1]
+        ship3.coord = allCoords[2]
+        ship4.coord = allCoords[3]
+        ship5.coord = allCoords[4]
+    }
+
+    shipPlaced()
+
+    // //given a ship in allShips, push coordinates to ship and return coordinate
+    // const shipPlaced = (shipNumb, shipLoc) => {
+
+    //     // user input places ships and then gameboard pushes ship coord 
+    //     allShips[shipNumb].coord = shipLoc
+
+    //     // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
+    //     return allShips
+
+    // }
 
     const receiveAttack = (shotCoord) => {
         // let missedShots = []
@@ -11583,9 +11647,9 @@ const gameBoard = () => {
             }
         }
         // if length of sunkShips == total number of ships, then all ships have been sunk
-        if (sunkShips.length == 2) {
+        if (sunkShips.length == 5) {
             return true
-        } else if (sunkShips.length < 2) {
+        } else if (sunkShips.length < 5) {
             return false
         }
 
@@ -11617,20 +11681,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const player = (name) => {
   // set up gameboard
-  let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_1__.gameBoard)()
+  let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_1__.gameBoard)(name)
   // set up ships
-  const place = (shipNumb, shipLoc) => {
-    // takes in ship number (starting at 0), and coord array 
-    board.shipPlaced(shipNumb, shipLoc)
-
-    // show ship on board css
-    if (name='player1') {
-      shipLoc.forEach((item) => {
-        jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + item).css('background-color', '#b9c2a9')
-      })
-    }
-
-    return ('ship placed')
+  const place = () => {
+    // board.shipPlaced()
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
@@ -11645,10 +11699,8 @@ const player = (name) => {
   const sunk = () => {
     
     if(board.allSunk() == true) {
-      console.log('all ships sunk')
       return true
     } else if (board.allSunk() == false) {
-      console.log('continue')
       return false
     }
 
@@ -11675,7 +11727,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ship": () => (/* binding */ ship)
 /* harmony export */ });
 
-const ship = (_length) => {    
+const ship = (name, length) => {    
     // each ship also records its coordinates and number of hits
     let hits = []
     let coord = []
@@ -11687,7 +11739,7 @@ const ship = (_length) => {
     // if hits array length == ship length, then return true (ship has sunk)
     const isSunk = () => {
         let hitNumb = hits.length
-        let shipLength = _length
+        let shipLength = length
         if (hitNumb === shipLength) {
             console.log('sunk')
             return true 
@@ -11696,7 +11748,7 @@ const ship = (_length) => {
         }
     }
 
-    return { _length, isHit, isSunk, coord }
+    return {name, length, isHit, isSunk, coord }
 }
 
 
@@ -11793,30 +11845,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// create player1 and computer 
 const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('player1')
 const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('computer')
 
-// place player1 ships
-player1.place(0, ['a1', 'b1'])
-player1.place(1, ['a2', 'b2', 'c2'])
-// console.log(player1.place(0, ['a1', 'b1']))
-// console.log(player1.place(1, ['a2', 'b2', 'c2']))
-
-// place computer ships 
-player2.place(0, ['a1', 'b1'])
-player2.place(1, ['a2', 'b2', 'c2'])
-// console.log(player2.place(0, ['a1', 'b1']))
-// console.log(player2.place(1, ['a2', 'b2', 'c2']))
+// place computer ships randomly
 
 // computer attacks player1 = return player1.attack, create loop 
 let playerTurn = false
-let compAttempted = []
-let playerAttempted = []
+
 
 function computerAttack() {
+    let compAttempted = []
+
     if (playerTurn == false) {
         // computer starts first, generate random attack coordinate
-        const letters = ['a','b','c','d','e','f','g','h','i','k']
+        const letters = ['a','b','c','d','e','f','g','h','i','j']
     
         const randomXInt = letters[Math.floor((Math.random() * 9))]
         const randomY = String(Math.floor((Math.random() * 10) + 1))
@@ -11828,7 +11872,7 @@ function computerAttack() {
         if (findCompAttempt == undefined) {
             compAttempted.push(compCoord)
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
-            console.log(compAttempted)
+            // if havent attacked coord before, attack player1 board
             player1.isAttacked(compCoord)
             
             // has player1 ship all sunk?
@@ -11841,7 +11885,6 @@ function computerAttack() {
             playerTurn = true
             return compAttempted
         } else if (findCompAttempt != undefined) {
-            console.log('duplicate')
             // find new attack coord
             computerAttack()
         }
@@ -11849,6 +11892,8 @@ function computerAttack() {
 }
 
 function playerAttack() {
+    let playerAttempted = []
+
     if (playerTurn == true) {
         let getAttack = ""
     
@@ -11866,12 +11911,11 @@ function playerAttack() {
                 playerAttempted.push(getAttack)
                 // create hit mark on board
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
-                console.log(playerAttempted)
                 // see if computer board ship hit 
                 // player2.isAttacked(getAttack)
 
                 if(player2.isAttacked(getAttack)== true) {
-                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).css('background-color', '#78323e')
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).css('background-color', '#9e6b60')
                 }
 
                 // determine if computer board all ships have sunk

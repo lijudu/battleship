@@ -3,20 +3,10 @@ import {gameBoard} from './gameboard.js'
 
 const player = (name) => {
   // set up gameboard
-  let board = gameBoard()
+  let board = gameBoard(name)
   // set up ships
-  const place = (shipNumb, shipLoc) => {
-    // takes in ship number (starting at 0), and coord array 
-    board.shipPlaced(shipNumb, shipLoc)
-
-    // show ship on board css
-    if (name='player1') {
-      shipLoc.forEach((item) => {
-        $('#squarep.' + item).css('background-color', '#b9c2a9')
-      })
-    }
-
-    return ('ship placed')
+  const place = () => {
+    // board.shipPlaced()
   }
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
@@ -31,10 +21,8 @@ const player = (name) => {
   const sunk = () => {
     
     if(board.allSunk() == true) {
-      console.log('all ships sunk')
       return true
     } else if (board.allSunk() == false) {
-      console.log('continue')
       return false
     }
 

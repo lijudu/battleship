@@ -1,5 +1,5 @@
 
-const ship = (_length) => {    
+const ship = (name, length) => {    
     // each ship also records its coordinates and number of hits
     let hits = []
     let coord = []
@@ -11,7 +11,7 @@ const ship = (_length) => {
     // if hits array length == ship length, then return true (ship has sunk)
     const isSunk = () => {
         let hitNumb = hits.length
-        let shipLength = _length
+        let shipLength = length
         if (hitNumb === shipLength) {
             console.log('sunk')
             return true 
@@ -20,7 +20,7 @@ const ship = (_length) => {
         }
     }
 
-    return { _length, isHit, isSunk, coord }
+    return {name, length, isHit, isSunk, coord }
 }
 
 export { ship }
