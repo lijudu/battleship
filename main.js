@@ -11572,7 +11572,7 @@ const gameBoard = (name) => {
                 break;
                 }
                 coords.push(xCoords[xx] + yCoords[yy]);
-                console.log(xCoords[xx] + yCoords[yy])
+                // console.log(xCoords[xx] + yCoords[yy])
             }
             
             // If the ship fits, place it and mark the grid with 'X'
@@ -11587,7 +11587,7 @@ const gameBoard = (name) => {
                 }
                 }
                 allCoords.push(coords)
-                console.log(allCoords)
+                // console.log(allCoords)
                 placed = true;
             }
             }
@@ -11602,16 +11602,6 @@ const gameBoard = (name) => {
 
     shipPlaced()
 
-    // //given a ship in allShips, push coordinates to ship and return coordinate
-    // const shipPlaced = (shipNumb, shipLoc) => {
-
-    //     // user input places ships and then gameboard pushes ship coord 
-    //     allShips[shipNumb].coord = shipLoc
-
-    //     // can just use ship1 = [], ship 2=[] ie dont need to push to ship?
-    //     return allShips
-
-    // }
 
     const receiveAttack = (shotCoord) => {
         // let missedShots = []
@@ -11853,23 +11843,23 @@ const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('computer')
 
 // computer attacks player1 = return player1.attack, create loop 
 let playerTurn = false
-
+let compAttempted = []
 
 function computerAttack() {
-    let compAttempted = []
+    // let compAttempted = []
 
     if (playerTurn == false) {
         // computer starts first, generate random attack coordinate
         const letters = ['a','b','c','d','e','f','g','h','i','j']
     
-        const randomXInt = letters[Math.floor((Math.random() * 9))]
+        const randomXInt = letters[Math.floor((Math.random() * 10))]
         const randomY = String(Math.floor((Math.random() * 10) + 1))
     
         const compCoord = randomXInt + randomY
 
-        const findCompAttempt = compAttempted.find(item => item == compCoord)
+        // const findCompAttempt = compAttempted.find(item => item == compCoord)
 
-        if (findCompAttempt == undefined) {
+        if (compAttempted.find(item => item == compCoord) ==  undefined) {
             compAttempted.push(compCoord)
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
             // if havent attacked coord before, attack player1 board
@@ -11878,18 +11868,22 @@ function computerAttack() {
             // has player1 ship all sunk?
             if(player1.sunk() === true) {
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Computer Wins!</div>')
-            return
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+            playerTurn = false
+            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
+            return 
             }
             
             // if not all sunk, continue with player1 turn 
             playerTurn = true
-            return compAttempted
-        } else if (findCompAttempt != undefined) {
+            console.log(compAttempted)
+        } else   {
             // find new attack coord
             computerAttack()
         }
         }
 }
+
 
 function playerAttack() {
     let playerAttempted = []
