@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&family=Roboto+Slab:wght@400;500;600&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n    font-family: 'Roboto Slab', 'Ariel';\n    margin: 0;\n}\n\n#header {\n    text-align: center;\n    font-size: 4rem;\n    margin: 30px;\n}\n\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n    margin: 30px;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n    /* z-index: 1;\n    position: absolute; */\n    \n}\n\n#gameover {\n    backdrop-filter: blur(2px);\n    align-items: center;\n    justify-content: center;\n    position: absolute;\n    z-index: 1;\n    top: 20%;\n    width: 100%;   \n    height: 300px; \n    padding-top: 100px;\n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n    margin: 10px;\n}\n\n.playagain{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-top: 50px;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-family: 'Roboto Slab', 'Ariel';\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid black;\n    border-radius: 10px;\n\n}\n\n.replay:hover {\n    color: grey;\n    border: 1px solid grey\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n    font-family: 'Roboto Slab', 'Ariel';\n    margin: 0;\n    background-color:#FAFAFA;\n    color: #403e3d;\n}\n\n#header {\n    text-align: center;\n    font-size: 4rem;\n    margin: 30px;\n}\n\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n    margin: 30px;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n    /* z-index: 1;\n    position: absolute; */\n    \n}\n\n#gameover {\n    backdrop-filter: blur(2px);\n    align-items: center;\n    justify-content: center;\n    position: absolute;\n    z-index: 1;\n    top: 20%;\n    width: 100%;   \n    height: 300px; \n    padding-top: 100px;\n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n    margin: 10px;\n}\n\n.playagain{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-top: 50px;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-family: 'Roboto Slab', 'Ariel';\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid #403e3d;\n    border-radius: 10px;\n    color: #403e3d;\n\n}\n\n.replay:hover {\n    color: grey;\n    border: 1px solid grey\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11573,7 +11573,6 @@ const gameBoard = (name) => {
                 break;
                 }
                 coords.push(xCoords[xx] + yCoords[yy]);
-                // console.log(xCoords[xx] + yCoords[yy])
             }
             
             // If the ship fits, place it and mark the grid with 'X'
@@ -11582,13 +11581,9 @@ const gameBoard = (name) => {
                 grid[yCoords.indexOf(coord.slice(1))][xCoords.indexOf(coord.slice(0, 1))] = 'X';
                 if (name == 'player1') {
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + coord).css('background-color', '#b9c2a9')
-                } else if (name == 'computer') {
-                    // remove computer ship placed later...
-                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + coord).css('background-color', '#b9c2a9')
-                }
+                } 
                 }
                 allCoords.push(coords)
-                // console.log(allCoords)
                 placed = true;
             }
             }
@@ -11601,6 +11596,7 @@ const gameBoard = (name) => {
         ship5.coord = allCoords[4]
     }
 
+    // generate random player 1 and computer board
     shipPlaced()
 
 
@@ -11618,7 +11614,6 @@ const gameBoard = (name) => {
           
         // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
         } else if (shipIndex !== -1){
-            console.log('hit')
             allShips[shipIndex].isHit(attackCoord)
             return true
         }
@@ -11633,7 +11628,6 @@ const gameBoard = (name) => {
         for(let i=0; i<allShips.length; i++) {
             if(allShips[i].isSunk() == true) {
                 sunkShips.push('x')
-                console.log(sunkShips)
 
             }
         }
@@ -11671,24 +11665,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const player = (name) => {
-  // set up gameboard
+  // set up gameboard with random coordinates for ships
   let board = (0,_gameboard_js__WEBPACK_IMPORTED_MODULE_1__.gameBoard)(name)
-  // set up ships
-  const place = () => {
-    // board.shipPlaced()
-  }
+
   // receive attack given some input coordinate 
   const isAttacked = (inputCoord) => {
-
-    // board.receiveAttack(inputCoord) 
-
     if (board.receiveAttack(inputCoord)== true) {
       return true
     }
   }
   // determine if all of players ships have sunk (= gameover)
   const sunk = () => {
-    
     if(board.allSunk() == true) {
       return true
     } else if (board.allSunk() == false) {
@@ -11697,7 +11684,7 @@ const player = (name) => {
 
   }
 
-  return {name, isAttacked, place, sunk}
+  return {name, isAttacked, sunk}
 }
 
 
@@ -11847,8 +11834,6 @@ let playerTurn = false
 let compAttempted = []
 
 function computerAttack() {
-    // let compAttempted = []
-
     if (playerTurn == false) {
         // computer starts first, generate random attack coordinate
         const letters = ['a','b','c','d','e','f','g','h','i','j']
@@ -11858,8 +11843,7 @@ function computerAttack() {
     
         const compCoord = randomXInt + randomY
 
-        // const findCompAttempt = compAttempted.find(item => item == compCoord)
-
+        // if attempted coordinate not a duplicate:
         if (compAttempted.find(item => item == compCoord) ==  undefined) {
             compAttempted.push(compCoord)
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
@@ -11868,16 +11852,14 @@ function computerAttack() {
             
             // has player1 ship all sunk?
             if(player1.sunk() === true) {
-            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Computer Wins!</div>')
-            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
-            playerTurn = false
-            jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
-            return 
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div id="gameover"><div class="declare">Computer Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
+                playerTurn = false
+                jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
+                return 
             }
             
             // if not all sunk, continue with player1 turn 
             playerTurn = true
-            console.log(compAttempted)
         } else   {
             // find new attack coord
             computerAttack()
@@ -11907,8 +11889,6 @@ function playerAttack() {
                 // create hit mark on board
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
                 // see if computer board ship hit 
-                // player2.isAttacked(getAttack)
-
                 if(player2.isAttacked(getAttack)== true) {
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).css('background-color', '#9e6b60')
                 }
@@ -11917,16 +11897,11 @@ function playerAttack() {
                 if(player2.sunk() ===  true){
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div id="gameover"><div class="declare">Player 1 Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
-                    // $('#main').append('<div class="declare">Player 1 Wins!</div>')
-                    // $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
                     return
                 }
                 // return playerTurn back to computer
                 playerTurn = false
                 // wait for computer attack
-                // setTimeout(() => {
-                //     computerAttack()
-                // }, 1000)
                 computerAttack()
             }
 
