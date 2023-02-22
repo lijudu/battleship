@@ -14,8 +14,6 @@ let playerTurn = false
 let compAttempted = []
 
 function computerAttack() {
-    // let compAttempted = []
-
     if (playerTurn == false) {
         // computer starts first, generate random attack coordinate
         const letters = ['a','b','c','d','e','f','g','h','i','j']
@@ -25,8 +23,7 @@ function computerAttack() {
     
         const compCoord = randomXInt + randomY
 
-        // const findCompAttempt = compAttempted.find(item => item == compCoord)
-
+        // if attempted coordinate not a duplicate:
         if (compAttempted.find(item => item == compCoord) ==  undefined) {
             compAttempted.push(compCoord)
             $('#squarep.' + compCoord).append('<div class="hit"></div>')
@@ -35,16 +32,14 @@ function computerAttack() {
             
             // has player1 ship all sunk?
             if(player1.sunk() === true) {
-            $('#main').append('<div class="declare">Computer Wins!</div>')
-            $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
-            playerTurn = false
-            $('#computer').off('click')
-            return 
+                $('#main').append('<div id="gameover"><div class="declare">Computer Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
+                playerTurn = false
+                $('#computer').off('click')
+                return 
             }
             
             // if not all sunk, continue with player1 turn 
             playerTurn = true
-            console.log(compAttempted)
         } else   {
             // find new attack coord
             computerAttack()
@@ -74,8 +69,6 @@ function playerAttack() {
                 // create hit mark on board
                 $('#square.' + getAttack).append('<div class="hit"></div>')
                 // see if computer board ship hit 
-                // player2.isAttacked(getAttack)
-
                 if(player2.isAttacked(getAttack)== true) {
                     $('#square.' + getAttack).css('background-color', '#9e6b60')
                 }
@@ -84,16 +77,11 @@ function playerAttack() {
                 if(player2.sunk() ===  true){
                     $('#computer').off('click')
                     $('#main').append('<div id="gameover"><div class="declare">Player 1 Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
-                    // $('#main').append('<div class="declare">Player 1 Wins!</div>')
-                    // $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
                     return
                 }
                 // return playerTurn back to computer
                 playerTurn = false
                 // wait for computer attack
-                // setTimeout(() => {
-                //     computerAttack()
-                // }, 1000)
                 computerAttack()
             }
 

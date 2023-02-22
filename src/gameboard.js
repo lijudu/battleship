@@ -47,7 +47,6 @@ const gameBoard = (name) => {
                 break;
                 }
                 coords.push(xCoords[xx] + yCoords[yy]);
-                // console.log(xCoords[xx] + yCoords[yy])
             }
             
             // If the ship fits, place it and mark the grid with 'X'
@@ -56,13 +55,9 @@ const gameBoard = (name) => {
                 grid[yCoords.indexOf(coord.slice(1))][xCoords.indexOf(coord.slice(0, 1))] = 'X';
                 if (name == 'player1') {
                     $('#squarep.' + coord).css('background-color', '#b9c2a9')
-                } else if (name == 'computer') {
-                    // remove computer ship placed later...
-                    $('#square.' + coord).css('background-color', '#b9c2a9')
-                }
+                } 
                 }
                 allCoords.push(coords)
-                // console.log(allCoords)
                 placed = true;
             }
             }
@@ -75,6 +70,7 @@ const gameBoard = (name) => {
         ship5.coord = allCoords[4]
     }
 
+    // generate random player 1 and computer board
     shipPlaced()
 
 
@@ -92,7 +88,6 @@ const gameBoard = (name) => {
           
         // if attackCoord is a coordinate in ship.coord, increase hit of attacked ship
         } else if (shipIndex !== -1){
-            console.log('hit')
             allShips[shipIndex].isHit(attackCoord)
             return true
         }
@@ -107,7 +102,6 @@ const gameBoard = (name) => {
         for(let i=0; i<allShips.length; i++) {
             if(allShips[i].isSunk() == true) {
                 sunkShips.push('x')
-                console.log(sunkShips)
 
             }
         }
