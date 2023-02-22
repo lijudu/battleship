@@ -83,13 +83,17 @@ function playerAttack() {
                 // determine if computer board all ships have sunk
                 if(player2.sunk() ===  true){
                     $('#computer').off('click')
-                    $('#main').append('<div class="declare">Player1 Wins!</div>')
-                    $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+                    $('#main').append('<div id="gameover"><div class="declare">Player 1 Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
+                    // $('#main').append('<div class="declare">Player 1 Wins!</div>')
+                    // $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
                     return
                 }
                 // return playerTurn back to computer
                 playerTurn = false
                 // wait for computer attack
+                // setTimeout(() => {
+                //     computerAttack()
+                // }, 1000)
                 computerAttack()
             }
 

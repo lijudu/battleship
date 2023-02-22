@@ -1,14 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&family=Roboto+Slab:wght@400;500;600&display=swap');
 
-
+body {
+    font-family: 'Roboto Slab', 'Ariel';
+    margin: 0;
+}
 
 #header {
     text-align: center;
-    font-size: 3rem;
+    font-size: 4rem;
+    margin: 30px;
 }
+
 
 #name {
     text-align: center;
     font-size: 1.5rem;
+    margin: 30px;
 }
 
 #square, #squarep {
@@ -61,9 +68,29 @@
     
 }
 
+#gameover {
+    backdrop-filter: blur(2px);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+    width: 100%;   
+    height: 300px; 
+    padding-top: 100px;
+}
+
 .declare {
     font-size: 1.5rem;
     text-align: center;
+    margin: 10px;
+}
+
+.playagain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
 }
 
 .replay {
@@ -71,4 +98,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Roboto Slab', 'Ariel';
+    background-color: transparent;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+.replay:hover {
+    color: grey;
+    border: 1px solid grey
 }

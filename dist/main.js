@@ -20,8 +20,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&family=Roboto+Slab:wght@400;500;600&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n#header {\n    text-align: center;\n    font-size: 3rem;\n}\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n    /* z-index: 1;\n    position: absolute; */\n    \n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n    font-family: 'Roboto Slab', 'Ariel';\n    margin: 0;\n}\n\n#header {\n    text-align: center;\n    font-size: 4rem;\n    margin: 30px;\n}\n\n\n#name {\n    text-align: center;\n    font-size: 1.5rem;\n    margin: 30px;\n}\n\n#square, #squarep {\n    border: 2px solid white;\n    width: 30px;\n    height: 30px;\n}\n\n#container {\n    display: flex;\n    justify-content: space-evenly;\n}\n\n#player1, #computer {\n    display: grid;\n    grid-template-columns: repeat(10, 30px);\n    grid-template-rows: repeat(10, 30px);\n    gap: 1px;\n}\n\n#name {\n    display: flex;\n    justify-content: space-evenly;\n    gap: 130px;\n}\n\n#squarep {\n    background-color: #ddf7b7;\n}\n\n#square {\n    background-color: #f5d0f2;\n}\n\n#square:hover {\n    background-color: #bf84ba;\n}\n\n\n\n.hit{\n    width: 15px;\n    height: 15px;\n    background-color:#d17d8d;\n    border-radius: 50%;\n    margin-left: 7px;\n    margin-top: 7px;\n    /* z-index: 1;\n    position: absolute; */\n    \n}\n\n#gameover {\n    backdrop-filter: blur(2px);\n    align-items: center;\n    justify-content: center;\n    position: absolute;\n    z-index: 1;\n    top: 20%;\n    width: 100%;   \n    height: 300px; \n    padding-top: 100px;\n}\n\n.declare {\n    font-size: 1.5rem;\n    text-align: center;\n    margin: 10px;\n}\n\n.playagain{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-top: 50px;\n}\n\n.replay {\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-family: 'Roboto Slab', 'Ariel';\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid black;\n    border-radius: 10px;\n\n}\n\n.replay:hover {\n    color: grey;\n    border: 1px solid grey\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11915,13 +11916,17 @@ function playerAttack() {
                 // determine if computer board all ships have sunk
                 if(player2.sunk() ===  true){
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
-                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="declare">Player1 Wins!</div>')
-                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
+                    jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div id="gameover"><div class="declare">Player 1 Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
+                    // $('#main').append('<div class="declare">Player 1 Wins!</div>')
+                    // $('#main').append('<div class="replay"><button class="replay">Replay</button></div>')
                     return
                 }
                 // return playerTurn back to computer
                 playerTurn = false
                 // wait for computer attack
+                // setTimeout(() => {
+                //     computerAttack()
+                // }, 1000)
                 computerAttack()
             }
 
