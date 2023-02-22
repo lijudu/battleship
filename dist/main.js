@@ -11541,7 +11541,7 @@ const gameBoard = (name) => {
     }
     }
 
-    // each player has 5 ships (placed in allShip array) 
+    // each player has 5 ships with defined ship name and ship length (placed in allShip array) 
     const ship1 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship1', 2)
     const ship2 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship2', 3)
     const ship3 = (0,_ship__WEBPACK_IMPORTED_MODULE_1__.ship)('ship3', 3)
@@ -11589,6 +11589,7 @@ const gameBoard = (name) => {
             }
         }
 
+        // set each ship's coord
         ship1.coord = allCoords[0]
         ship2.coord = allCoords[1]
         ship3.coord = allCoords[2]
@@ -11601,8 +11602,6 @@ const gameBoard = (name) => {
 
 
     const receiveAttack = (shotCoord) => {
-        // let missedShots = []
-
         let attackCoord = shotCoord
 
         // given coordinates, does it exist within allShips[ships].coord?
@@ -11710,11 +11709,11 @@ const ship = (name, length) => {
     let hits = []
     let coord = []
 
-    // if ship coordinates = attack coord, then will place that attack coord into a hit array 
+    // if ship coordinates = some attack location, then log that attack as a hit 
     const isHit = (location) => {
         hits.push(location)
     }
-    // if hits array length == ship length, then return true (ship has sunk)
+    // if hits array length == ship length, then return sunk = true 
     const isSunk = () => {
         let hitNumb = hits.length
         let shipLength = length
@@ -11827,9 +11826,7 @@ __webpack_require__.r(__webpack_exports__);
 const player1 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('player1')
 const player2 = (0,_player_js__WEBPACK_IMPORTED_MODULE_2__.player)('computer')
 
-// place computer ships randomly
-
-// computer attacks player1 = return player1.attack, create loop 
+// computer starts first, keep computer attempted coordinates in an array
 let playerTurn = false
 let compAttempted = []
 
@@ -11846,12 +11843,14 @@ function computerAttack() {
         // if attempted coordinate not a duplicate:
         if (compAttempted.find(item => item == compCoord) ==  undefined) {
             compAttempted.push(compCoord)
+            // mark player1 board as hit received
             jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#squarep.' + compCoord).append('<div class="hit"></div>')
-            // if havent attacked coord before, attack player1 board
+            // attack player1 board
             player1.isAttacked(compCoord)
             
             // has player1 ship all sunk?
             if(player1.sunk() === true) {
+                // gameover, show replay button
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div id="gameover"><div class="declare">Computer Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
                 playerTurn = false
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
@@ -11875,12 +11874,11 @@ function playerAttack() {
         let getAttack = ""
     
         jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').on('click', function(e){
-            // player unable to hit same target twice
-
             getAttack = e.target.className
             // see if player has already clicked before
             const findAttempt = playerAttempted.find(item => item == getAttack)
 
+            // if player has clicked on same target, do nothing
             if (getAttack == 'hit') {
                 // do nothing
             } else if (findAttempt == undefined) {
@@ -11888,12 +11886,11 @@ function playerAttack() {
                 playerAttempted.push(getAttack)
                 // create hit mark on board
                 jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).append('<div class="hit"></div>')
-                // see if computer board ship hit 
+                // see if computer board ship hit, then mark on board
                 if(player2.isAttacked(getAttack)== true) {
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#square.' + getAttack).css('background-color', '#9e6b60')
                 }
-
-                // determine if computer board all ships have sunk
+                // determine if computer board all ships have sunk = gameover
                 if(player2.sunk() ===  true){
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#computer').off('click')
                     jQuery__WEBPACK_IMPORTED_MODULE_0___default()('#main').append('<div id="gameover"><div class="declare">Player 1 Wins!</div><div class="playagain"><button class="replay">Replay</button></div></div>')
@@ -11910,13 +11907,14 @@ function playerAttack() {
     }
 }
 
+// replay button function
 function restart() {
     jQuery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.replay', function() {
         location.reload()
     })
 }
 
-
+// gameloop
 (function gameLoop() {
     computerAttack()
     playerAttack()

@@ -4,11 +4,11 @@ const ship = (name, length) => {
     let hits = []
     let coord = []
 
-    // if ship coordinates = attack coord, then will place that attack coord into a hit array 
+    // if ship coordinates = some attack location, then log that attack as a hit 
     const isHit = (location) => {
         hits.push(location)
     }
-    // if hits array length == ship length, then return true (ship has sunk)
+    // if hits array length == ship length, then return sunk = true 
     const isSunk = () => {
         let hitNumb = hits.length
         let shipLength = length

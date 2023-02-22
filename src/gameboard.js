@@ -15,7 +15,7 @@ const gameBoard = (name) => {
     }
     }
 
-    // each player has 5 ships (placed in allShip array) 
+    // each player has 5 ships with defined ship name and ship length (placed in allShip array) 
     const ship1 = ship('ship1', 2)
     const ship2 = ship('ship2', 3)
     const ship3 = ship('ship3', 3)
@@ -63,6 +63,7 @@ const gameBoard = (name) => {
             }
         }
 
+        // set each ship's coord
         ship1.coord = allCoords[0]
         ship2.coord = allCoords[1]
         ship3.coord = allCoords[2]
@@ -75,8 +76,6 @@ const gameBoard = (name) => {
 
 
     const receiveAttack = (shotCoord) => {
-        // let missedShots = []
-
         let attackCoord = shotCoord
 
         // given coordinates, does it exist within allShips[ships].coord?
